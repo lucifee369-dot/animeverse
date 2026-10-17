@@ -43,9 +43,11 @@ const emailError = document.getElementById("emailError");
 const messageInput = document.getElementById("Message");
 const messageError = document.getElementById("messageError");
 const formValidation = document.getElementById("formValidation");
+let formSubmitted = false;
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
+    formSubmitted = true;
 
     const username = usernameInput.value.trim();
     const isUserNameValid = username !== "";
@@ -109,10 +111,18 @@ usernameInput.addEventListener("input", () => {
     if(isUserNameValid){
         userNameLabel.style.display = "none";
         userNameLabel.textContent = "";
+        formValidation.style.display = "none";
+        formValidation.textContent = "";
+    }
+    else if(formSubmitted === false){
+        userNameLabel.style.display = "none";
+        userNameLabel.textContent = "";
+        formValidation.style.display = "none";
+        formValidation.textContent = "";        
     }
     else{
         userNameLabel.style.display = "block";
-        userNameLabel.textContent = "*Please enter your username.";        
+        userNameLabel.textContent = "*Please enter your username.";
     }
 });
 
@@ -120,7 +130,13 @@ emailInput.addEventListener("input", () => {
     const Email = emailInput.value.trim();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (Email === "") {
+    if (formSubmitted === false) {
+        emailError.style.display = "none";
+        emailError.textContent = "";
+        formValidation.style.display = "none";
+        formValidation.textContent = "";
+    }
+    else if (Email === "") {
         emailError.style.display = "block";
         emailError.textContent = "*Please enter your email.";
     }
@@ -131,6 +147,8 @@ emailInput.addEventListener("input", () => {
     else {
         emailError.style.display = "none";
         emailError.textContent = "";
+        formValidation.style.display = "none";
+        formValidation.textContent = "";
     }
 });
 
@@ -142,6 +160,14 @@ messageInput.addEventListener("input", () => {
     if(isMessagevalid){
         messageError.style.display = "none";
         messageError.textContent = "";
+        formValidation.style.display = "none";
+        formValidation.textContent = "";
+    }
+    else if(formSubmitted === false){
+        messageError.style.display = "none";
+        messageError.textContent = "";
+        formValidation.style.display = "none";
+        formValidation.textContent = "";
     }
     else{
         messageError.style.display = "block";
